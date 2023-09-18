@@ -7,6 +7,7 @@ function App() {
     <>
       <React.StrictMode>
         <RouterProvider router={routers} />
+        {/* <GlobalStyle /> */}
       </React.StrictMode>
     </>
   );
