@@ -2,6 +2,7 @@ import { Button, Typography } from "@mui/material";
 import { Field, Form, Formik } from "formik";
 import { useCallback, useState } from "react";
 import { searchBarcodeHook } from "./hooks/index";
+import {getTagoIoService} from "./services/tagoIo"
 
 export const BarcodePage = () => {
   const [value, setValue] = useState({});
@@ -11,6 +12,14 @@ export const BarcodePage = () => {
       const product = await searchBarcodeHook(code);
       console.log(product);
       setValue(product);
+    },
+    []
+  );
+
+  const handleGetData = useCallback(
+    async () => {
+      const data = await getTagoIoService();
+      console.log(data);
     },
     []
   );
@@ -51,6 +60,8 @@ export const BarcodePage = () => {
           alt={value?.product?.image_front_small_url}
         ></img>
       </div>
+
+      <button onClick={handleGetData}>TESTE TAGO</button>
     </>
   );
 };
