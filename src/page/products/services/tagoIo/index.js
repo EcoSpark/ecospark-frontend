@@ -9,6 +9,5 @@ const config = {
 
 export const getTagoIoService = async () => {
     const { data } = (await axios.get(`https://api.tago.io/data?qty=100`, config))
-    console.log(data)
     return data
 }

@@ -10,7 +10,6 @@ export const BarcodePage = () => {
   const handleSubmitCode = useCallback(
     async (code) => {
       const product = await searchBarcodeHook(code);
-      console.log(product);
       setValue(product);
     },
     []
@@ -18,8 +17,7 @@ export const BarcodePage = () => {
 
   const handleGetData = useCallback(
     async () => {
-      const data = await getTagoIoService();
-      console.log(data);
+      await getTagoIoService();
     },
     []
   );

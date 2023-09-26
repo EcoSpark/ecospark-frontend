@@ -1,9 +1,7 @@
-import { searchBarcode } from "../services/index"
+import { searchBarcode } from "../services/get-barcode/index"
 
 const searchBarcodeHook = async (code) => {
-    console.log(code)
-    const product = await searchBarcode(code)
-    return { ...product }
+    return await searchBarcode(code)
 }
 
 export { searchBarcodeHook }
