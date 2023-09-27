@@ -8,5 +8,4 @@ export const WrapperStyled = styled.div`
   align-items: center;
   overflow: hidden;
   background-color: #e6e8e6;
-  font-family: monospace;
 `;

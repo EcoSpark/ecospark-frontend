@@ -5,7 +5,6 @@ export const WrapperStyled = styled.div`
   height: 100vh;
   display: flex;
   flex-direction: column;
-  font-family: monospace;
 `;
 
 export const ButtonStyled = styled.button`
