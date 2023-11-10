@@ -15,13 +15,17 @@ export const BarcodePage = () => {
   const [barcodes, setBarcode] = useState();
   const [products, setProducts] = useState();
 
-  const { data, isLoading } = useQuery({
+  const { data, isLoading, refetch } = useQuery({
     queryKey: ["codes_products"],
     queryFn: async () => {
       const result = await getTagoIoService();
       return result;
     },
   });
+
+  setInterval(() => {
+    refetch();
+  }, 15000);
 
   useEffect(() => {
     if (data && data.result) {
@@ -33,7 +37,7 @@ export const BarcodePage = () => {
       });
       setBarcode(barcodes);
     }
-  }, [data]);
+  }, [data, data?.result]);
 
   useEffect(() => {
     (async () => {
