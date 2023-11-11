@@ -1,0 +1,28 @@
+@use '../../style/variables'
+
+footer
+  align-items: center
+  height: 10rem
+  background-color: variables.$color-black
+  color: variables.$color-white
+  padding: 0rem 5rem
+
+#image-container
+  display: flex
+  flex-direction: column
+  gap: 0.5rem
+
+#section-social-media
+  display: flex
+  align-items: center
+  gap: 1.2rem
+
+@media screen and (max-width: 768px)
+  footer
+    justify-content: center
+
+  #image-container
+    display: none
+
+  #section-social-media
+    justify-content: flex-end

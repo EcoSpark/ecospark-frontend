@@ -1,18 +1,13 @@
 export const MachineImage = () => {
   return (
     <svg
-      width="200"
-      height="300"
-      viewBox="0 0 200 300"
+      width="400"
+      height="600"
+      viewBox="0 0 400 600"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
       xmlnsXlink="http://www.w3.org/1999/xlink"
     >
-      <ellipse cx="-52.5" cy="142.5" rx="148.5" ry="142.5" fill="#D9D9D9" />
-      <ellipse cx="301" cy="175" rx="46" ry="44" fill="#D9D9D9" />
-      <ellipse cx="-3" cy="354" rx="23" ry="22" fill="#D9D9D9" />
-      <ellipse cx="278" cy="77" rx="23" ry="22" fill="#D9D9D9" />
-      <ellipse cx="175" cy="99" rx="46" ry="44" fill="#D9D9D9" />
       <rect x="20" y="67" width="314" height="468" fill="url(#machine_0)" />
       <defs>
         <pattern
