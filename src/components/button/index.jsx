@@ -5,7 +5,7 @@ export const Button = (props) => {
     <button
       id="button-wrapper"
       type="button"
-      className="btn btn-light"
+      className={`btn btn-${props.color}`}
       onClick={props.onClick}
     >
       {props.name}

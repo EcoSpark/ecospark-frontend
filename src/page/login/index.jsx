@@ -15,16 +15,6 @@ export const LoginPage = () => {
           <Input placeholder={"Digite seu login"} />
           <Input placeholder={"Digite sua Senha"} />
         </div>
-
-        <div
-          style={{
-            display: "flex",
-            justifyContent: "space-between",
-          }}
-        >
-          <p>Esqueceu a Senha?</p>
-          <button>Entrar</button>
-        </div>
       </PopUp>
     </S.WrapperStyled>
   );

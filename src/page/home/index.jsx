@@ -21,7 +21,11 @@ export const HomePage = () => {
             Descubra como nossa solução é a ponte para cumprir esse compromisso.
           </h6>
 
-          <Button name="Fazer Login" onClick={() => navigate("/login")} />
+          <Button
+            name="Fazer Login"
+            color="light"
+            onClick={() => navigate("/login")}
+          />
         </div>
 
         <img

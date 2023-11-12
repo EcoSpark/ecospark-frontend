@@ -18,7 +18,7 @@ export const Footer = () => {
         <i className="bi bi-whatsapp"></i>
         <i className="bi bi-linkedin"></i>
         <i className="bi bi-facebook"></i>
-        <Button name="Login" onClick={() => navigate("/login")} />
+        <Button name="Login" color="light" onClick={() => navigate("/login")} />
       </section>
     </footer>
   );
