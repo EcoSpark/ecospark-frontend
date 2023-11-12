@@ -8,6 +8,17 @@ const config = {
   },
 };
 
+export const postTagoIoService = async (data) => {
+  const call = await axios.post(`https://api.tago.io/data`, data, {
+    headers: {
+      "Content-Type": "application/json",
+      "device-token": "f1d16878-22f2-45e1-a398-513fde4b1a13",
+    },
+  });
+
+  return call;
+};
+
 export const getTagoIoService = async () => {
   const { data } = await axios.get(
     `https://api.tago.io/data?ordination=descending`,

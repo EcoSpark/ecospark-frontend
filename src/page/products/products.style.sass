@@ -1,0 +1,67 @@
+@use '../../style/variables'
+
+#wrapper-products-page
+  width: 100%
+  height: 100vh
+  background-color: variables.$color-green
+  display: flex
+  flex-direction: column
+  justify-content: flex-start
+  align-items: center
+  gap: 4rem
+
+  &-list
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    gap: 1.25rem
+
+  &-header
+    display: flex
+    justify-content: space-between
+    align-items: center
+    padding: 0.625rem 1.5rem
+    gap: 4rem
+
+#wrapper-products-list
+  width: 80%
+  height: 10.625rem
+  display: flex
+  justify-content: space-between
+  align-items: flex-end
+  border-radius: 1.25rem
+  padding: 1.25rem
+  background-color: #e6e8e6
+  overflow: hidden
+
+  &-content
+    display: flex
+    gap: 1.25rem
+
+  &-categories
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+  &-text
+    display: flex
+    flex-direction: column
+    gap: 1.25rem
+
+  &-buttons
+    display: flex
+    gap: 1.25rem
+
+  img
+    width: 5.9375rem
+    height: 7.5rem
+    border-radius: 1.25rem
+
+@media screen and (max-width: 600px)
+  #wrapper-products-page
+    gap: 1.25rem
+
+  #wrapper-products-list
+    width: 100%
+    height: auto

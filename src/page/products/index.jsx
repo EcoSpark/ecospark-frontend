@@ -8,12 +8,14 @@ import {
   deleteBucketTagoIoService,
   deleteTagoIoService,
   getTagoIoService,
+  postTagoIoService,
 } from "./services/tagoIo";
 import * as S from "./styled";
+import "./products.style.sass";
 
 export const BarcodePage = () => {
   const [barcodes, setBarcode] = useState();
-  const [products, setProducts] = useState();
+  const [products, setProducts] = useState([]);
 
   const { data, isLoading, refetch } = useQuery({
     queryKey: ["codes_products"],
@@ -22,10 +24,6 @@ export const BarcodePage = () => {
       return result;
     },
   });
-
-  setInterval(() => {
-    refetch();
-  }, 15000);
 
   useEffect(() => {
     if (data && data.result) {
@@ -39,51 +37,84 @@ export const BarcodePage = () => {
     }
   }, [data, data?.result]);
 
-  useEffect(() => {
-    (async () => {
-      if (barcodes) {
-        let listProducts = [];
-        for (const row of barcodes) {
-          const updatedValue = await searchBarcodeHook(row.code);
-          listProducts.push({
-            value: updatedValue,
-            id: row.id,
-          });
-        }
-        setProducts(listProducts);
-      }
-    })();
-  }, [barcodes]);
-
-  const handleDeleteProduct = useCallback(async (ids) => {
-    try {
-      await deleteTagoIoService(ids);
-      toast("Produto Removido com sucesso!", {
-        type: "success",
-      });
-    } catch (err) {
-      toast("Erro ao Remover o Produto!", {
-        type: "error",
+  const fetchAndSetProducts = useCallback(async (barcodes) => {
+    let listProducts = [];
+    for (const row of barcodes) {
+      const updatedValue = await searchBarcodeHook(row.code);
+      listProducts.push({
+        value: updatedValue,
+        id: row.id,
       });
     }
+    return listProducts;
   }, []);
 
-  const handleRecicle = useCallback(async () => {
+  const handleDeleteProduct = useCallback(
+    async (ids) => {
+      try {
+        await deleteTagoIoService(ids);
+        toast("Produto Removido com sucesso!", {
+          type: "success",
+        });
+        setProducts([]);
+        refetch();
+      } catch (err) {
+        toast("Erro ao Remover o Produto!", {
+          type: "error",
+        });
+      }
+    },
+    [refetch]
+  );
+
+  const handleRecycle = useCallback(async () => {
     try {
       toast("Reciclagem realizada!", {
         type: "success",
       });
       await deleteBucketTagoIoService();
+      setProducts([]);
+      refetch();
     } catch (err) {
       toast("Erro ao Finalizar a Reciclagem!", {
         type: "error",
       });
     }
-  }, []);
+  }, [refetch]);
+
+  const handlePostProduct = useCallback(
+    async (data) => {
+      try {
+        toast("Adicionando Produto...", {
+          type: "info",
+        });
+
+        await postTagoIoService(data);
+        const newProducts = await fetchAndSetProducts([
+          ...barcodes,
+          { code: data.value },
+        ]);
+
+        setProducts(newProducts);
+
+        toast("Produto Adicionado com sucesso!", {
+          type: "success",
+        });
+
+        refetch();
+      } catch (err) {
+        console.error("Erro ao Adicionar o Produto", err);
+        toast("Erro ao Adicionar o Produto. Tente Novamente.", {
+          type: "error",
+        });
+      }
+    },
+    [barcodes, fetchAndSetProducts, refetch]
+  );
 
   return (
-    <S.WrapperStyled>
-      <S.HeaderStyled>
+    <main id="wrapper-products-page">
+      <div id="wrapper-products-page-header">
         <EcoSparkWhite />
         <Box sx={{ display: "flex", alignItems: "center", gap: 2 }}>
           <Typography variant="subtitle1" color="white">
@@ -94,9 +125,9 @@ export const BarcodePage = () => {
             src="https://media-gru2-2.cdn.whatsapp.net/v/t61.24694-24/371016127_834964271601300_3490510982285681712_n.jpg?ccb=11-4&oh=01_AdRaiCpQZ7G419GuwzHcJFCRG1WDRC9aJbGvFkVZ9N-09Q&oe=6520AF6E&_nc_sid=000000&_nc_cat=109"
           />
         </Box>
-      </S.HeaderStyled>
+      </div>
 
-      <S.WrapperListStyled>
+      <section id="wrapper-products-page-list">
         {isLoading ? (
           <Skeleton
             variant="rectangular"
@@ -105,31 +136,27 @@ export const BarcodePage = () => {
             sx={{ borderRadius: "20px" }}
           />
         ) : (
-          products?.map((item, index) => {
+          products?.map((item) => {
+            console.log(item);
             return (
-              <S.ListProductsStyled key={index}>
-                <S.ListProductsContentStyled>
-                  <S.ImageStyled
+              <div id="wrapper-products-list" key={item?.value.product?.code}>
+                <div id="wrapper-products-list-content">
+                  <img
                     src={item?.value.product?.image_front_small_url}
                     alt={item?.value.product?.image_front_small_url}
                   />
 
-                  <S.TextContainerStyled>
-                    <S.TextTitleStyled>
-                      <Typography variant="h5">
-                        {item?.value.product?.product_name}
-                      </Typography>
-                      <Typography variant="h6">
-                        {item?.value.product?.brands}
-                      </Typography>
-                    </S.TextTitleStyled>
-                    <Typography variant="subtitle1">
-                      Cód - {item?.value.product?.code}
-                    </Typography>
-                  </S.TextContainerStyled>
-                </S.ListProductsContentStyled>
+                  <div id="wrapper-products-list-categories">
+                    <div id="wrapper-products-list-categories">
+                      <h5>{item?.value.product?.product_name}</h5>
+                      <h6>{item?.value.product?.brands}</h6>
+                    </div>
 
-                <Box sx={{ display: "flex", gap: 2 }}>
+                    <span>Cód - {item?.value.product?.code}</span>
+                  </div>
+                </div>
+
+                <div id="wrapper-products-list-buttons">
                   <Button
                     variant="contained"
                     color="error"
@@ -137,15 +164,16 @@ export const BarcodePage = () => {
                   >
                     Remover
                   </Button>
+
                   <Button variant="contained" color="success">
                     +
                   </Button>
-                </Box>
-              </S.ListProductsStyled>
+                </div>
+              </div>
             );
           })
         )}
-      </S.WrapperListStyled>
+      </section>
 
       <S.Footer>
         <div
@@ -155,11 +183,24 @@ export const BarcodePage = () => {
             gap: 50,
           }}
         >
-          <Button variant="contained" color="success" onClick={handleRecicle}>
+          <Button variant="contained" color="success" onClick={handleRecycle}>
             Reciclar
+          </Button>
+
+          <Button
+            variant="contained"
+            color="warning"
+            onClick={() =>
+              handlePostProduct({
+                variable: "code",
+                value: 7891150027848,
+              })
+            }
+          >
+            Adicionar Produto
           </Button>
         </div>
       </S.Footer>
-    </S.WrapperStyled>
+    </main>
   );
 };

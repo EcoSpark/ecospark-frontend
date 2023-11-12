@@ -1,22 +1,5 @@
 import styled from "styled-components";
 
-export const WrapperStyled = styled.div`
-  width: 100%;
-  height: 100vh;
-  background-color: #173008;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-`;
-
-export const WrapperListStyled = styled.div`
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  gap: 20px;
-`;
-
 export const ListProductsStyled = styled.div`
   width: 80%;
   height: 200px;

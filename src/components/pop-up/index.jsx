@@ -20,7 +20,7 @@ const PopUp = ({ children }) => {
             <Button
               name="Entrar"
               color="success"
-              onClick={() => navigate("/dashboard")}
+              onClick={() => navigate("/products")}
             />
           </div>
         </div>
