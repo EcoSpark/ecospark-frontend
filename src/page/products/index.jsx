@@ -4,14 +4,13 @@ import { useCallback, useEffect, useState } from "react";
 import { toast } from "react-toastify";
 import { EcoSparkWhite } from "../../assets/logos/ecospark-white";
 import { searchBarcodeHook } from "./hooks/index";
+import "./products.style.sass";
 import {
   deleteBucketTagoIoService,
   deleteTagoIoService,
   getTagoIoService,
   postTagoIoService,
 } from "./services/tagoIo";
-import * as S from "./styled";
-import "./products.style.sass";
 
 export const BarcodePage = () => {
   const [barcodes, setBarcode] = useState();
@@ -175,32 +174,24 @@ export const BarcodePage = () => {
         )}
       </section>
 
-      <S.Footer>
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            gap: 50,
-          }}
-        >
-          <Button variant="contained" color="success" onClick={handleRecycle}>
-            Reciclar
-          </Button>
+      <section id="wrapper-button-action">
+        <Button variant="contained" color="success" onClick={handleRecycle}>
+          Reciclar
+        </Button>
 
-          <Button
-            variant="contained"
-            color="warning"
-            onClick={() =>
-              handlePostProduct({
-                variable: "code",
-                value: 7891150027848,
-              })
-            }
-          >
-            Adicionar Produto
-          </Button>
-        </div>
-      </S.Footer>
+        <Button
+          variant="contained"
+          color="warning"
+          onClick={() =>
+            handlePostProduct({
+              variable: "code",
+              value: 7891150027848,
+            })
+          }
+        >
+          Adicionar Produto
+        </Button>
+      </section>
     </main>
   );
 };
