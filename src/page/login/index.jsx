@@ -1,21 +1,21 @@
-import * as S from "./styled";
-import PopUp from "../../components/pop-up/index";
 import Input from "../../components/input";
+import PopUp from "../../components/pop-up/index";
+import "./login.style.sass";
 
 export const LoginPage = () => {
   return (
-    <S.WrapperStyled>
+    <main id="wrapper-login-page">
       <PopUp>
         <div>
           <p>Olá,</p>
           <p>Informe seu usuário e senha.</p>
         </div>
 
-        <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
+        <div id="wrapper-login-inputs">
           <Input placeholder={"Digite seu login"} />
           <Input placeholder={"Digite sua Senha"} />
         </div>
       </PopUp>
-    </S.WrapperStyled>
+    </main>
   );
 };

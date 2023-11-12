@@ -1,32 +1,15 @@
 @use '../../style/variables'
 
-#wrapper
+#wrapper-login-page
+  width: 100%
+  height: 100vh
   display: flex
-  width: 80%
-  height: 80%
-  border-radius: 40px
+  justify-content: center
+  align-items: center
   overflow: hidden
+  background-color: variables.$color-gray
 
-#wrapper-logo
-  display: flex
-  flex: 0 0 50%
-  justify-content: center
-  align-items: center
-  max-width: 50%
-  height: 100%
-  background-color: variables.$color-green
-
-#wrapper-content
-  display: flex
-  flex-direction: column
-  justify-content: center
-  align-items: center
-  max-width: 50%
-  flex: 0 0 50%
-  background-color: variables.$color-white
-
-#content
-  display: flex
-  flex-direction: column
-  width: 50%
-  gap: 40px
+  &-inputs
+    display: flex
+    flex-direction: column
+    gap: 10
